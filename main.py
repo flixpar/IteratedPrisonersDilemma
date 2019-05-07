@@ -2,7 +2,16 @@ import random
 
 from game import GameState
 import players
-player_types = [players.NicePlayer, players.MeanPlayer, players.TitForTatPlayer]
+
+player_types = [
+	players.NicePlayer,
+	players.MeanPlayer,
+	players.TitForTatPlayer,
+	players.AlternateCooperateFlipPlayer,
+	players.RandomPlayer,
+	# players.AlternatePlayer,
+	# players.LastCheatPlayerPlayer,
+]
 
 def main():
 
@@ -10,12 +19,14 @@ def main():
 	players = generate_mixed_player_pool(10)
 
 	# play games between random players
-	for _ in range(1000):
-		p1, p2 = random.sample(players, 2)
-		game = GameState(p1, p2)
-		r1, r2 = game.play()
-		p1.reward(r1)
-		p2.reward(r2)
+	for _ in range(2):
+		for i in range(len(players)):
+			for j in range(i+1, len(players)):
+				p1, p2 = players[i], players[j]
+				game = GameState(p1, p2, iterations=100)
+				r1, r2 = game.play()
+				p1.reward(r1)
+				p2.reward(r2)
 
 	#  display rewards
 	rewards = rewards_by_playertype(players)
