@@ -23,4 +23,4 @@ class GameState:
 			elif p1 == 1 and p2 == 1:
 				rewards[0] += -2
 				rewards[1] += -2
-		return rewards[0], rewards[1]
+		return rewards[0] / self.n_iter, rewards[1] / self.n_iter
