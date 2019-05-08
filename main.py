@@ -7,10 +7,12 @@ player_types = [
 	players.NicePlayer,
 	players.MeanPlayer,
 	players.TitForTatPlayer,
-	players.AlternateCooperateFlipPlayer,
+	players.GrudgerPlayer,
 	players.RandomPlayer,
+	players.LastCheatPlayer,
+	players.AlternateCooperateFlipPlayer,
 	# players.AlternatePlayer,
-	# players.LastCheatPlayerPlayer,
+	# players.BayesianPlayer,
 ]
 
 def main():
@@ -31,7 +33,7 @@ def main():
 	#  display rewards
 	rewards = rewards_by_playertype(players)
 	for p_type, outcome in rewards.items():
-		print(f"Average score for {p_type.__name__}: {outcome[0]/outcome[1]}")
+		print(f"Average score for {p_type.__name__}: {outcome[0]/outcome[1]:.3f}")
 
 def generate_random_player_pool(n=100):
 	players = []
