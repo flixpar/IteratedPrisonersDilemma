@@ -25,21 +25,22 @@ class MeanPlayer(Player):
 
 class TitForTatPlayer(Player):
 	def action(self, gamestate, player_ind):
-		if gamestate:
-			return gamestate[-1][1-player_ind]
+		if gamestate["current_iter"] > 1:
+			return gamestate["moves"][-1][1-player_ind]
 		else:
 			return 0
 
 class AlternateCooperateFlipPlayer(Player):
 	def action(self, gamestate, player_ind):
-		if len(gamestate) % 2 == 0:
+		return 1
+		if gamestate["current_iter"] % 2 == 1:
 			return 0
 		else:
 			return (np.random.rand(1) > 0.5)[0]
 
-class LastCheatPlayerPlayer(Player):
+class LastCheatPlayer(Player):
 	def action(self, gamestate, player_ind):
-		if len(gamestate) < 98:
+		if gamestate["current_iter"] < gamestate["n_iter"]:
 			return 0
 		else:
 			return 1

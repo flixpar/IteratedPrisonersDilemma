@@ -4,13 +4,14 @@ class GameState:
 		self.player1 = player1
 		self.player2 = player2
 		self.n_iter = iterations
-		self.state = []
+		self.state = {"moves": [], "n_iter": iterations, "current_iter": 0}
 
 	def play(self):
 		rewards = [0, 0]
 		for _ in range(self.n_iter):
+			self.state["current_iter"] += 1
 			p1, p2 = self.player1.action(self.state, 0), self.player2.action(self.state, 1)
-			self.state.append((p1, p2))
+			self.state["moves"].append((p1, p2))
 			if p1 == 0 and p2 == 0:
 				rewards[0] += 2
 				rewards[1] += 2
